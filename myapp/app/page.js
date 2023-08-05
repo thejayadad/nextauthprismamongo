@@ -3,7 +3,7 @@ import Image from 'next/image'
 export default function Home() {
   return (
     <main>
-      Home Page
+      <h2 className='text-center'>Home Page</h2>
     </main>
   )
 }
