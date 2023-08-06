@@ -1,12 +1,58 @@
 'use client'
+import React, { useState } from 'react';
+import axios from 'axios'; // Import Axios
+import { useRouter } from 'next/navigation';
 
-import React from 'react'
 
 const Register = () => {
+  const router = useRouter();
+  const [data, setData] = useState({
+    name: '',
+    email: '',
+    password: ''
+  });
+
+
+  const registerUser = async (e) => {
+    e.preventDefault();
+
+    // Check the data being sent in the request
+    console.log('Data to be sent:', {
+      name: data.name,
+      email: data.email,
+      password: data.password
+    });
+
+    try {
+      const response = await axios.post('/api/register', {
+        name: data.name,
+        email: data.email,
+        password: data.password
+      }, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      // If the request is successful, you can access the response data
+      const user = response.data;
+
+      // Perform any actions based on the response if needed
+
+      // Redirect to the login page
+      router.push('/login');
+    } catch (error) {
+      // Handle any errors that may occur during the request
+      console.error('Error registering user:', error);
+      // Handle error messages or other actions if needed
+    }
+  };
+
+
   return (
     <section className='flex flex-col w-full max-w-md px-4 py-8 bg-white rounded-lg shadow sm:px-6 md:px-8 lg:px-10 m-auto mt-24 bg-gray-900'>
     <h2 className='self-center mb-6 text-xl font-light text-gray-600 sm:text-2xl'>Register</h2>
-    <form>
+    <form onSubmit={registerUser}>
         <div className='flex flex-col mb-2'>
         <div className='flex relative'>
         <input
@@ -15,7 +61,10 @@ const Register = () => {
           name='email'
           id='email'
           type='email'
-    
+          value={data.email}
+          onChange={(e) => {
+            setData({ ...data, email: e.target.value });
+          }}
         />
         </div>
         </div>
@@ -27,6 +76,10 @@ const Register = () => {
           name='password'
           id='password'
           type='password'
+          value={data.password}
+          onChange={(e) => {
+            setData({ ...data, password: e.target.value });
+          }}
        
         />
            </div>
@@ -39,6 +92,10 @@ const Register = () => {
           name='name'
           id='name'
           type='text'
+          value={data.name}
+          onChange={(e) => {
+            setData({ ...data, name: e.target.value });
+          }}
      
         />
         </div>
