@@ -34,17 +34,10 @@ const Register = () => {
         }
       });
 
-      // If the request is successful, you can access the response data
       const user = response.data;
-
-      // Perform any actions based on the response if needed
-
-      // Redirect to the login page
       router.push('/login');
     } catch (error) {
-      // Handle any errors that may occur during the request
       console.error('Error registering user:', error);
-      // Handle error messages or other actions if needed
     }
   };
 
