@@ -16,7 +16,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { email, password } = data; // Destructure email and password from data
+    const { email, password } = data; 
 
     if (password === '' || email === '') {
       toast.error('Fill all fields!');
